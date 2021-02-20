@@ -68,11 +68,6 @@
                                         <span class="text-success font-weight-700" v-else>Strong</span>
                                     </small>
                                 </div>
-                                <base-checkbox>
-                                    <span>I agree with the
-                                        <a href="#">Privacy Policy</a>
-                                    </span>
-                                </base-checkbox>
                                 <div class="text-center">
                                     <base-button type="primary" class="my-4" @click="register">Create account</base-button>
                                 </div>

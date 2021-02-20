@@ -2,14 +2,14 @@
     <header class="header-global">
         <base-nav class="navbar-main" transparent type="" effect="light" expand>
             <router-link slot="brand" class="navbar-brand mr-lg-5" to="/">
-                <h3 class="font-weight-900" style="color: white">MoveX</h3>
+                <h3 class="font-weight-900" style="color: white">moveX</h3>
             </router-link>
 
             <div class="row" slot="content-header" slot-scope="{closeMenu}">
                 <div class="col-6 collapse-brand">
-                    <a href="https://demos.creative-tim.com/vue-argon-design-system/documentation/">
-                        <img src="img/brand/blue.png">
-                    </a>
+                    <router-link to="/" >
+                      moveX
+                    </router-link>
                 </div>
                 <div class="col-6 collapse-close">
                     <close-button @click="closeMenu"></close-button>
@@ -59,11 +59,11 @@
                 </base-dropdown>-->
             </ul>
             <ul class="navbar-nav align-items-lg-center ml-lg-auto">
-                <li class="nav-item">
+<!--                <li class="nav-item">
                   <a class="nav-link nav-link-icon" href="https://www.facebook.com/creativetim" target="_blank" rel="noopener"
                      data-toggle="tooltip" title="Like us on Facebook">
                     <i class="fa fa-facebook-square"></i>
-                    <span class="nav-link-inner--text d-lg-none">Facebook</span>
+                    <span class="nav-link-inner&#45;&#45;text d-lg-none">Facebook</span>
                   </a>
                 </li>
                 <li class="nav-item">
@@ -71,7 +71,7 @@
                      target="_blank" rel="noopener" data-toggle="tooltip" title="Follow us on Instagram"
                   >
                     <i class="fa fa-instagram"></i>
-                    <span class="nav-link-inner--text d-lg-none">Instagram</span>
+                    <span class="nav-link-inner&#45;&#45;text d-lg-none">Instagram</span>
                   </a>
                 </li>
                 <li class="nav-item">
@@ -79,9 +79,9 @@
                      data-toggle="tooltip" title="Follow us on Twitter"
                   >
                     <i class="fa fa-twitter-square"></i>
-                    <span class="nav-link-inner--text d-lg-none">Twitter</span>
+                    <span class="nav-link-inner&#45;&#45;text d-lg-none">Twitter</span>
                   </a>
-                </li>
+                </li>-->
                 <li class="nav-item ml-lg-4 mb-4 mt-4 mb-sm-2 mt-sm-2">
                   <router-link :to="{ name: 'login'}" rel="noopener"
                      class="btn btn-neutral btn-icon"

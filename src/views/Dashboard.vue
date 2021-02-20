@@ -208,6 +208,7 @@
       </div>-->
 
       <!-- #Main ============================ -->
+      <modal :show="showModal" :show-close="showClose" @closeModalWithUpdate="updateRequest" @close="closeModal" />
       <div class="page-container">
         <!-- ### $Topbar ### -->
         <div class="header navbar">
@@ -224,22 +225,12 @@
             </ul>
             <ul class="nav-right">
               <li class="dropdown">
-                <a href="" class="dropdown-toggle no-after peers fxw-nw ai-c lh-1" data-toggle="dropdown">
-                  <div class="peer mR-10">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" version="1.1" width="32" height="32" x="0" y="0" viewBox="0 0 512 512.002" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path xmlns="http://www.w3.org/2000/svg" d="m210.351562 246.632812c33.882813 0 63.222657-12.152343 87.195313-36.128906 23.972656-23.972656 36.125-53.304687 36.125-87.191406 0-33.875-12.152344-63.210938-36.128906-87.191406-23.976563-23.96875-53.3125-36.121094-87.191407-36.121094-33.886718 0-63.21875 12.152344-87.191406 36.125s-36.128906 53.308594-36.128906 87.1875c0 33.886719 12.15625 63.222656 36.132812 87.195312 23.976563 23.96875 53.3125 36.125 87.1875 36.125zm0 0" fill="#555abf" data-original="#000000" style=""/><path xmlns="http://www.w3.org/2000/svg" d="m426.128906 393.703125c-.691406-9.976563-2.089844-20.859375-4.148437-32.351563-2.078125-11.578124-4.753907-22.523437-7.957031-32.527343-3.308594-10.339844-7.808594-20.550781-13.371094-30.335938-5.773438-10.15625-12.554688-19-20.164063-26.277343-7.957031-7.613282-17.699219-13.734376-28.964843-18.199219-11.226563-4.441407-23.667969-6.691407-36.976563-6.691407-5.226563 0-10.28125 2.144532-20.042969 8.5-6.007812 3.917969-13.035156 8.449219-20.878906 13.460938-6.707031 4.273438-15.792969 8.277344-27.015625 11.902344-10.949219 3.542968-22.066406 5.339844-33.039063 5.339844-10.972656 0-22.085937-1.796876-33.046874-5.339844-11.210938-3.621094-20.296876-7.625-26.996094-11.898438-7.769532-4.964844-14.800782-9.496094-20.898438-13.46875-9.75-6.355468-14.808594-8.5-20.035156-8.5-13.3125 0-25.75 2.253906-36.972656 6.699219-11.257813 4.457031-21.003906 10.578125-28.96875 18.199219-7.605469 7.28125-14.390625 16.121094-20.15625 26.273437-5.558594 9.785157-10.058594 19.992188-13.371094 30.339844-3.199219 10.003906-5.875 20.945313-7.953125 32.523437-2.058594 11.476563-3.457031 22.363282-4.148437 32.363282-.679688 9.796875-1.023438 19.964844-1.023438 30.234375 0 26.726562 8.496094 48.363281 25.25 64.320312 16.546875 15.746094 38.441406 23.734375 65.066406 23.734375h246.53125c26.625 0 48.511719-7.984375 65.0625-23.734375 16.757813-15.945312 25.253906-37.585937 25.253906-64.324219-.003906-10.316406-.351562-20.492187-1.035156-30.242187zm0 0" fill="#555abf" data-original="#000000" style=""/></g></svg>
+                <a href="#" @click="logout" class="dropdown-toggle no-after peers fxw-nw ai-c lh-1" data-toggle="dropdown">
+                  <div class="">
+                    <img width="32" src="../assets/exit.png" alt="">
                   </div>
                   <div class="peer">
-                    <span class="fsz-sm c-grey-900">Profile</span>
-                  </div>
-                </a>
-              </li>
-              <li class="dropdown">
-                <a href="" class="dropdown-toggle no-after peers fxw-nw ai-c lh-1" data-toggle="dropdown">
-                  <div class="peer mR-10">
-                    <img class="w-2r bdrs-50p" src="https://randomuser.me/api/portraits/men/10.jpg" alt="">
-                  </div>
-                  <div class="peer">
-                    <span class="fsz-sm c-grey-900">John Doe</span>
+                    <span class="fsz-sm c-grey-900">Logout</span>
                   </div>
                 </a>
               </li>
@@ -335,8 +326,8 @@
               <div class="masonry-item col-md-12">
                 <!-- #Sales Report ==================== -->
                 <div class="bd bgc-white">
-                  <div class="ta-c bdT w-100 p-20">
-                    <button class="btn btn-primary" href="#">Add New Delivery</button>
+                  <div class="ta-c bdT w-100 p-30">
+                    <button class="btn btn-primary font-weight-900" @click="closeModal" href="#">Add New Delivery</button>
                   </div>
                   <div class="layers">
                     <div class="layer w-100 p-20">
@@ -374,7 +365,7 @@
 
         <!-- ### $App Screen Footer ### -->
         <footer class="bdT ta-c p-30 lh-0 fsz-sm c-grey-600">
-          <span>Copyright © 2019 Designed by <a href="https://colorlib.com" target='_blank' title="Colorlib">Colorlib</a>. All rights reserved.</span>
+          <span>Copyright © 2021 <a href="#" title="Colorlib">moveX</a>. All rights reserved.</span>
         </footer>
       </div>
     </div>
@@ -385,6 +376,7 @@
 <script>
 import {APIService} from "@/BackendApiService";
 import moment from 'moment'
+import Modal from "@/components/Modal";
 
 window.addEventListener('load', function load() {
   const loader = document.getElementById('loader');
@@ -394,6 +386,7 @@ window.addEventListener('load', function load() {
 });
 export default {
   name: "Dashboard",
+  components: {Modal},
   data () {
     return {
       dialog: false,
@@ -437,6 +430,8 @@ export default {
       ],
       items: [],
       user_id: null,
+      showModal: false,
+      showClose: true
     }
   },
   created() {
@@ -455,6 +450,10 @@ export default {
     updateRequest () {
       const apiServ = new APIService()
       let sessionId = localStorage.getItem('session_id')
+      this.pending = 0
+      this.cancel = 0
+      this.assigned = 0
+      this.delivered = 0
       apiServ.fetchDeliveryRequests(this.user_id, sessionId).then(req => {
         let expectedDeliveryDate = ''
         this.items = req.data.result
@@ -479,6 +478,7 @@ export default {
           this.items[i]['expected_delivery_date'] = expectedDeliveryDate
           this.items[i]['delivery_price'] = req.data.result[i].delivery_price
           this.items[i]['status'] = req.data.result[i].state
+          this.showModal = false
         }
       }).catch(err => {
         console.log(err)
@@ -516,6 +516,13 @@ export default {
       }
       this.dialog = false
     },
+    closeModal() {
+      this.showModal = !this.showModal;
+    },
+    logout() {
+      localStorage.removeItem('logged_in_user_id')
+      this.$router.push({ name: 'login' })
+    }
   },
 }
 </script>
@@ -568,5 +575,9 @@ export default {
       transform: scale(1.0);
       opacity: 0;
     }
+}
+
+.header {
+ width: 100%;
 }
 </style>

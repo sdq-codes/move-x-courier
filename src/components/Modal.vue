@@ -12,22 +12,51 @@
            :class="[{'modal-notice': type === 'notice'}, modalClasses]">
         <div class="modal-content" :class="[gradient ? `bg-gradient-${gradient}` : '',modalContentClasses]">
 
-          <div class="modal-header" :class="[headerClasses]" v-if="$slots.header">
+          <div class="modal-header" :class="[headerClasses]">
             <slot name="header"></slot>
             <slot name="close-button">
+              <h5 class="font-weight-900">Create New Delivery</h5>
               <button type="button"
-                      class="close"
-                      v-if="showClose"
+                      class="close font-weight-900"
                       @click="closeModal"
                       data-dismiss="modal"
                       aria-label="Close">
-                <span :aria-hidden="!show">×</span>
+                <span >×</span>
               </button>
             </slot>
           </div>
 
           <div class="modal-body" :class="bodyClasses">
-            <slot></slot>
+            <form role="form">
+              <base-input
+                  class="mb-3"
+                  placeholder="Customer Name*"
+                  v-model="customerName"
+                  addon-left-icon="ni ni-single-02">
+              </base-input>
+              <base-input
+                  class="mb-3"
+                  placeholder="Product Name*"
+                  v-model="productName"
+                  addon-left-icon="ni">
+              </base-input>
+              <base-input
+                  class="mb-3"
+                  placeholder="Delivery Address*"
+                  v-model="deliveryAddress"
+                  addon-left-icon="ni ni-delivery-fast">
+              </base-input>
+              <base-input
+                  type="number"
+                  v-model="customerTel"
+                  @keypress="isNumber"
+                  placeholder="Telephone*"
+                  addon-left-icon="ni ni-tablet-button">
+              </base-input>
+              <div class="text-center">
+                <base-button type="primary" class="my-4" @click="SendRequest">Create Delivery</base-button>
+              </div>
+            </form>
           </div>
 
           <div class="modal-footer" :class="footerClasses" v-if="$slots.footer">
@@ -41,12 +70,15 @@
 </template>
 <script>
 import { SlideYUpTransition } from "vue2-transitions";
+import {validations} from "@/mixins/validations";
+import {APIService} from "@/BackendApiService";
 
 export default {
   name: "modal",
   components: {
     SlideYUpTransition
   },
+  mixins: [validations],
   props: {
     show: Boolean,
     showClose: {
@@ -92,11 +124,55 @@ export default {
       description: "Modal transition duration"
     }
   },
+  data() {
+    return {
+      customerName: "",
+      productName: "",
+      deliveryAddress: "",
+      customerTel: ""
+    }
+  },
   methods: {
     closeModal() {
       this.$emit("update:show", false);
       this.$emit("close");
-    }
+    },
+    closeModalWithUpdate() {
+      this.$emit("closeModalWithUpdate");
+    },
+    SendRequest (e) {
+      e.preventDefault()
+      const apiServ = new APIService()
+      if (localStorage.getItem('session_id') && localStorage.getItem('logged_in_user_id')) {
+        const data = {
+          params: {
+            data: {
+              customer: localStorage.getItem('logged_in_user_id'),
+              delivery_request_lines: [
+                [0, 0, {
+                  product_name: this.productName,
+                  delivery_address: this.deliveryAddress,
+                  item_owner: this.customerName,
+                  item_owner_phone: this.customerTel,
+                }],
+              ],
+            },
+          },
+        }
+        apiServ.createDeliveryRequest(data, localStorage.getItem('session_id')).then(res => {
+          console.log(res.data)
+          this.delivery_address = ''
+          this.product_name = ''
+          this.closeModalWithUpdate()
+        }).catch(err => {
+          console.log(err)
+        })
+      } else {
+        console.log('login please')
+        this.$router.push({ name: 'login' })
+      }
+      this.dialog = false
+    },
   },
   watch: {
     show(val) {
