@@ -343,12 +343,12 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr v-for="item in items">
+                          <tr v-for="item in items"> 
                             <td class="fw-600">{{ item.request_no }}</td>
                             <td class="fw-600">{{ item.expected_delivery_date }}</td>
                             <td class="fw-600">&#8358;{{ item.delivery_price }}</td>
                             <td><span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill">{{ item.status }}</span> </td>
-                            <td><button class="btn btn-outline-primary p-10" @click="SendRequest(item.id)" v-if="item.state !== 'assigned'">Accept</button> </td>
+                            <td><button class="btn btn-outline-primary p-10" @click="SendRequest(item.id)" v-if="item.state == 'assigned'">Delivered</button> </td>
                           </tr>
                           </tbody>
                         </table>
@@ -435,6 +435,8 @@ export default {
   },
   created() {
     const userId = localStorage.getItem('logged_in_user_id')
+    let sessionId = localStorage.getItem('session_id')
+    document.cookie = `session_id=${sessionId}`
     if (!userId) {
       this.$router.push({ name: 'login' })
     } else {
@@ -485,7 +487,8 @@ export default {
     },
     SendRequest (id) {
       const apiServ = new APIService()
-      apiServ.acceptDeliveryRequests(id)
+      let sessionId = localStorage.getItem('session_id')
+      apiServ.acceptDeliveryRequests(id, sessionId)
       .then(() => {
         this.updateRequest();
       })
