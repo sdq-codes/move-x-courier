@@ -115,8 +115,8 @@ export default {
           name: this.name,
           business_name: this.businessName,
           address: this.address,
-          is_courier: false,
-          uses_courier: true,
+          is_courier: true,
+          uses_courier: false,
           customer_email: this.email,
           customer_password: this.password,
           customer_phone_number: this.telephone

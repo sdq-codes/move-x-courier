@@ -326,9 +326,6 @@
               <div class="masonry-item col-md-12">
                 <!-- #Sales Report ==================== -->
                 <div class="bd bgc-white">
-                  <div class="ta-c bdT w-100 p-30">
-                    <button class="btn btn-primary font-weight-900" @click="closeModal" href="#">Add New Delivery</button>
-                  </div>
                   <div class="layers">
                     <div class="layer w-100 p-20">
                       <h6 class="lh-1">Deliveries</h6>
@@ -342,6 +339,7 @@
                             <th class=" bdwT-0">Expected Delivery Date</th>
                             <th class=" bdwT-0">Total Request Charge</th>
                             <th class=" bdwT-0">Status</th>
+                            <th class=" bdwT-0">Action</th>
                           </tr>
                           </thead>
                           <tbody>
@@ -350,6 +348,7 @@
                             <td class="fw-600">{{ item.expected_delivery_date }}</td>
                             <td class="fw-600">&#8358;{{ item.delivery_price }}</td>
                             <td><span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill">{{ item.status }}</span> </td>
+                            <td><button class="btn btn-outline-primary p-10" @click="SendRequest(item.id)" v-if="item.state !== 'assigned'">Accept</button> </td>
                           </tr>
                           </tbody>
                         </table>
@@ -484,37 +483,12 @@ export default {
         console.log(err)
       })
     },
-    SendRequest (e) {
-      e.preventDefault()
+    SendRequest (id) {
       const apiServ = new APIService()
-      if (localStorage.session_id && this.user_id) {
-        const data = {
-          params: {
-            data: {
-              customer: this.user_id,
-              delivery_request_lines: [
-                [0, 0, {
-                  product_name: this.product_name,
-                  delivery_address: this.delivery_address,
-                  item_owner: this.item_owner,
-                  item_owner_phone: this.item_owner_phone,
-                }],
-              ],
-            },
-          },
-        }
-        apiServ.createDeliveryRequest(data, localStorage.session_id).then(res => {
-          console.log(res.data)
-          this.delivery_address = ''
-          this.product_name = ''
-          this.updateRequest()
-        }).catch(err => {
-          console.log(err)
-        })
-      } else {
-        console.log('login please')
-      }
-      this.dialog = false
+      apiServ.acceptDeliveryRequests(id)
+      .then(() => {
+        this.updateRequest();
+      })
     },
     closeModal() {
       this.showModal = !this.showModal;

@@ -69,9 +69,24 @@ export class APIService {
     const response = axios.get(url, {
       params: {
         session_id: sessionID,
-        filter: `[["customer", "=", ${userId}]]`,
+        filter: `[["logistics_company", "=", ${userId}]]`,
       },
     })
+    return response
+  }
+
+  acceptDeliveryRequests (deliveryRequestId) {
+    //  fetch the user deliveries using the user ID
+    // const filter = "[['customer', '=', 1]]"
+    const url = `${APIURL}/api/delivery.request/${deliveryRequestId}/button_deliver_request`
+    const response = axios.post(url,
+        {
+          "params": {
+            "args": [],
+            "kwargs ": {}
+          }
+        }
+      )
     return response
   }
 
