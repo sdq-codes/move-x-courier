@@ -69,28 +69,32 @@ export class APIService {
     const response = axios.get(url, {
       params: {
         session_id: sessionID,
-        filter: `[["logistics_company", "=", ${userId}]]`,
+        filter: `[["logistics_company", "=", ${userId}], ["state", "!=", "new"]]`,
       },
     })
     return response
   }
 
-  acceptDeliveryRequests (deliveryRequestId) {
+  acceptDeliveryRequests (deliveryRequestId, sessionID) {
     //  fetch the user deliveries using the user ID
     // const filter = "[['customer', '=', 1]]"
-    const url = `${APIURL}/api/delivery.request/${deliveryRequestId}/button_deliver_request`
-    const response = axios.post(url,
-        {
-          "params": {
-            "args": [],
-            "kwargs ": {}
-          }
+    const url = `${APIURL}/object/delivery.request/${deliveryRequestId}/button_deliver_request`
+    var config = {
+      method: 'post',
+      url: url,
+      params: { session_id: sessionID },
+      headers: {
+        'Content-type': 'application/json',
+      },
+      data: JSON.stringify({
+        "params": {
+          "args": [],
+          "kwargs": {}
         }
-      )
+      }),
+    }
+    var response = axios(config)
     return response
   }
 
-  updateDeliveryRequest (deliveryDetails) {
-    // update the delivery request
-  }
 }

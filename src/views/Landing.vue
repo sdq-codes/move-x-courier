@@ -21,7 +21,7 @@
                             <div class="col-lg-6">
                                 <h1 class="display-3  text-white">
                                   moveX
-                                  <span>The solution to your logistics problem</span>
+                                  <span>The solution to all your logistics problem</span>
                                 </h1>
                                 <p class="lead  text-white">
                                   We help you safegaurd and transport your commodities. Our courier services are verified and are the best in the industry</p>
