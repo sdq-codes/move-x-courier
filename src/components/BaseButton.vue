@@ -1,7 +1,7 @@
 <template>
     <component :is="tag"
                :type="tag === 'button' ? nativeType: ''"
-               @click="handleClick"
+               @click="$router.push({ name:'login' })"
                class="btn"
                :class="classes">
     <span class="btn-inner--icon" v-if="$slots.icon || icon && $slots.default">
