@@ -27,7 +27,7 @@
                                   We help you safegaurd and transport your commodities. Our courier services are verified and are the best in the industry</p>
                                 <div class="btn-wrapper">
                                     <base-button tag="a"
-                                                 href="https://demos.creative-tim.com/argon-design-system/docs/components/alerts.html"
+                                                 @click="$router.push({ name:'login' })"
                                                  class="mb-3 mb-sm-0"
                                                  type="info"
                                                  icon="fa fa-user">
