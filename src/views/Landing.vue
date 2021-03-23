@@ -26,12 +26,22 @@
                                 <p class="lead  text-white">
                                   We help you safegaurd and transport your commodities. Our courier services are verified and are the best in the industry</p>
                                 <div class="btn-wrapper">
-                                    <base-button tag="a"
-                                                 class="mb-3 mb-sm-0"
-                                                 type="info"
-                                                 icon="fa fa-user">
-                                        Get Started
-                                    </base-button>
+                                  <div is="a"
+                                       type=""
+                                       @click.stop.prevent="$router.push({ name: 'login'})"
+                                       class="btn bg-white mb-3 mb-sm-0"
+                                  >
+                                    <span class="btn-inner--icon">
+                                      <slot name="icon">
+                                        <i class="fa fa-user"></i>
+                                      </slot>
+                                    </span>
+                                    <span class="btn-inner--text">
+                                        <slot>
+                                          Get Stated
+                                        </slot>
+                                    </span>
+                                  </div>
                                 </div>
                             </div>
                         </div>
